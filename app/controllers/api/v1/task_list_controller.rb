@@ -11,8 +11,7 @@ class Api::V1::TaskListController < ApplicationController
     begin
       @task_list = TaskList.find(params[:id])
       @task_list.update(allowed_params)
-    rescue ActiveRecord::RecordNotFound => ex
-      @exception = ex
+    rescue ActiveRecord::RecordNotFound => @exception
     end
   end
 
@@ -20,16 +19,14 @@ class Api::V1::TaskListController < ApplicationController
     begin
       @task_list = TaskList.find(params[:id])
       @task_list.destroy
-    rescue ActiveRecord::RecordNotFound => ex
-      @exception = ex
+    rescue ActiveRecord::RecordNotFound => @exception
     end
   end
 
   def view
     begin
       @task_list = TaskList.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => ex
-      @exception = ex
+    rescue ActiveRecord::RecordNotFound => @exception
     end
   end
 

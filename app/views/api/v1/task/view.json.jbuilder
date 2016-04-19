@@ -1,5 +1,5 @@
 if @task.present?
-  json.task_list do
+  json.task do
     json.partial! 'task', locals: { task: @task}
   end
 elsif @exception.present?

@@ -1,21 +1,13 @@
 Rails.application.routes.draw do
-  get 'task_list/create'
-
-  get 'task_list/update'
-
-  get 'task_list/destroy'
-
-  devise_for :users,
-    controllers: {
-      sessions: "users/sessions",
-      registrations: "users/registrations"
-    }
-
   get '/authorization_error' => 'sessions#error'
 
   api vendor_string: "list", default_version: 1, path: '' do
     version 1 do
       cache as: 'v1' do
+        post "users/sign_in" => 'sessions#create'
+        post "users/sign_out" => 'sessions#destroy'
+        post "users" => 'registrations#create'
+
         resources :task_list, only: [:index, :create, :update, :destroy] do
           resources :task, only: [:create, :update, :destroy] do
             member do
