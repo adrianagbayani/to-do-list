@@ -11,13 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419082230) do
+ActiveRecord::Schema.define(version: 20160420092008) do
+
+  create_table "notes", force: :cascade do |t|
+    t.integer  "task_id"
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "notes", ["task_id"], name: "index_notes_on_task_id"
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id"
 
   create_table "task_lists", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "task_lists", ["user_id"], name: "index_task_lists_on_user_id"
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "task_list_id"
@@ -25,9 +39,11 @@ ActiveRecord::Schema.define(version: 20160419082230) do
     t.datetime "due_date"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "user_id"
   end
 
   add_index "tasks", ["task_list_id"], name: "index_tasks_on_task_list_id"
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

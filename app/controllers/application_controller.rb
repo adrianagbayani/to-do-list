@@ -1,8 +1,8 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
+	# Prevent CSRF attacks by raising an exception.
+	# For APIs, you may want to use :null_session instead.
 
-  # protect_from_forgery with: :null_session
+	# protect_from_forgery with: :null_session
   before_filter :authenticate_user, unless: :authentication_controller?
 
   protected
@@ -10,16 +10,25 @@ class ApplicationController < ActionController::Base
     false
   end
 
+	def render_errors(object)
+		render json: { errors: object.errors },
+			status: :unprocessable_entity and return
+	end
+
+	def render_empty_json
+		render json: {},
+			status: :unprocessable_entity and return
+	end
+
   def authenticate_user
-    binding.pry
     auth_token = request.headers["X-Auth-Token"]
 
     if auth_token.present?
-      user = User.where(auth_token: auth_token).first
+      @current_user = User.where(auth_token: auth_token).first
     end
 
-    if user.nil?
-      render "users/errors/authentication"
+    if @current_user.nil?
+      render json: { authentication_error: true }
     end
   end
 end

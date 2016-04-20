@@ -1,7 +1,4 @@
-if @task_list.present?
-  json.task_list do
-    json.partial! 'task_list', locals: { task_list: @task_list}
-  end
-elsif @exception.present?
-  json.error @exception.message
+json.task_list do
+	json.id task_list.id
+	json.name task_list.name
 end

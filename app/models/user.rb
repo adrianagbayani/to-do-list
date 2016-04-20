@@ -4,18 +4,19 @@ require 'securerandom'
 class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
 
+	has_many :task_lists
+	has_many :tasks
+	has_many :notes
+
   validates :username,
     presence: true,
     uniqueness: true
 
-  validates :password,
-    presence: true,
-    confirmation: true
-
+  validates_presence_of :password, on: :create
+  validates_confirmation_of :password, on: :create
   validates_length_of :password, in: 6..32, on: :create
 
-  validates :password_confirmation,
-    presence: true
+  validates_presence_of :password_confirmation, on: :create
 
   validates :email,
     presence: true,
@@ -35,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def generate_auth_token
-    update({ auth_token: friendly_token})
+    self.update({ auth_token: friendly_token})
   end
 
   def self.authenticate_user(login_params)
@@ -44,7 +45,7 @@ class User < ActiveRecord::Base
 
     if User.compare(user.encrypted_password, password)
       user.generate_auth_token
-
+      binding.pry
       return user
     else
       return nil

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get '/authorization_error' => 'sessions#error'
-
   api vendor_string: "list", default_version: 1, path: '' do
     version 1 do
       cache as: 'v1' do
@@ -8,14 +6,9 @@ Rails.application.routes.draw do
         post "users/sign_out" => 'sessions#destroy'
         post "users" => 'registrations#create'
 
-        resources :task_list, only: [:index, :create, :update, :destroy] do
-          resources :task, only: [:create, :update, :destroy] do
-            member do
-              get 'view'
-            end
-          end
-          member do
-            get 'view'
+        resources :task_list, only: [:index, :create, :update, :destroy, :show] do
+          resources :task, only: [:create, :update, :destroy, :show] do
+						resources :note, only: [:create, :update, :destroy]
           end
         end
       end

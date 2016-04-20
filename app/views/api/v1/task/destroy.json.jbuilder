@@ -1,7 +1,5 @@
-if @task.present?
-  json.task do
-    json.partial! 'task', locals: { task: @task}
-  end
-elsif @exception.present?
-  json.error @exception.message
+json.task do
+	json.id task.id
+	json.title task.title
+	json.due_date task.due_date
 end
