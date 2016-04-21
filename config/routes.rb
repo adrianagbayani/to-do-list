@@ -6,9 +6,13 @@ Rails.application.routes.draw do
         post "users/sign_out" => 'sessions#destroy'
         post "users" => 'registrations#create'
 
-        resources :task_list, only: [:index, :create, :update, :destroy, :show] do
-          resources :task, only: [:create, :update, :destroy, :show] do
-						resources :note, only: [:create, :update, :destroy]
+        resources :task_lists, only: [:index, :create, :update, :destroy, :show] do
+          resources :tasks, only: [:create, :update, :destroy, :show] do
+						resources :notes, only: [:create, :update, :destroy]
+
+						member do
+							post 'complete'
+						end
           end
         end
       end

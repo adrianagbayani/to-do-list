@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160420092008) do
+ActiveRecord::Schema.define(version: 20160420123548) do
 
   create_table "notes", force: :cascade do |t|
     t.integer  "task_id"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160420092008) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
+    t.boolean  "complete"
   end
 
   add_index "tasks", ["task_list_id"], name: "index_tasks_on_task_list_id"

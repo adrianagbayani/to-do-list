@@ -10,16 +10,6 @@ class ApplicationController < ActionController::Base
     false
   end
 
-	def render_errors(object)
-		render json: { errors: object.errors },
-			status: :unprocessable_entity and return
-	end
-
-	def render_empty_json
-		render json: {},
-			status: :unprocessable_entity and return
-	end
-
   def authenticate_user
     auth_token = request.headers["X-Auth-Token"]
 
