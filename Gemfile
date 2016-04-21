@@ -39,6 +39,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.0'
   gem 'factory_girl_rails'
+	gem 'simplecov', :require => false, :group => :test
 end
 
 group :development do

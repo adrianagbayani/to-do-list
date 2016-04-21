@@ -32,7 +32,8 @@ class User < ActiveRecord::Base
 
   validates :username,
     presence: true,
-    uniqueness: true
+    uniqueness: true,
+		length: 6..20
 
   validates_presence_of :password, on: :create
   validates_confirmation_of :password, on: :create
@@ -67,7 +68,7 @@ class User < ActiveRecord::Base
 
     if User.compare(user.encrypted_password, password)
       user.generate_auth_token
-      binding.pry
+
       return user
     else
       return nil
