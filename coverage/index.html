@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-21T20:29:27+08:00">2016-04-21T20:29:27+08:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-04-25T17:03:29+08:00">2016-04-25T17:03:29+08:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,15 +25,15 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.3
+         2.28
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>53</b> files in total.
-    <b>749</b> relevant lines. 
-    <span class="green"><b>749</b> lines covered</span> and
+    <b>746</b> relevant lines. 
+    <span class="green"><b>746</b> lines covered</span> and
     <span class="red"><b>0</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -73,11 +73,11 @@
       <tr>
         <td class="strong"><a href="#be60c26239ab0cd1cdb242d395e8da04239c3366" class="src_link" title="app/controllers/api/v1/notes_controller.rb">app/controllers/api/v1/notes_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>54</td>
-        <td>29</td>
-        <td>29</td>
+        <td>55</td>
+        <td>28</td>
+        <td>28</td>
         <td>0</td>
-        <td>1.8</td>
+        <td>1.7</td>
       </tr>
       
       <tr>
@@ -103,11 +103,11 @@
       <tr>
         <td class="strong"><a href="#cb6ee941659f577ba00d064cd2c5876b022e870c" class="src_link" title="app/controllers/api/v1/task_lists_controller.rb">app/controllers/api/v1/task_lists_controller.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>58</td>
-        <td>30</td>
-        <td>30</td>
+        <td>55</td>
+        <td>28</td>
+        <td>28</td>
         <td>0</td>
-        <td>2.2</td>
+        <td>1.9</td>
       </tr>
       
       <tr>
@@ -829,8 +829,8 @@
     <h3>app/controllers/api/v1/notes_controller.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>29</b> relevant lines. 
-      <span class="green"><b>29</b> lines covered</span> and
+      <b>28</b> relevant lines. 
+      <span class="green"><b>28</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -901,7 +901,7 @@
         <li class="covered" data-hits="2" data-linenumber="11">
           <span class="hits">2</span>
           
-          <code class="ruby">			@note = @task.notes.create(allowed_params)</code>
+          <code class="ruby">			@note = @current_user.notes.create(allowed_params)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
@@ -1141,22 +1141,28 @@
         <li class="covered" data-hits="4" data-linenumber="51">
           <span class="hits">4</span>
           
-          <code class="ruby">			allowed_params[:user] = @current_user</code>
+          <code class="ruby">			allowed_params[:task_id] = params[:task_id]</code>
         </li>
       
-        <li class="covered" data-hits="4" data-linenumber="52">
-          <span class="hits">4</span>
+        <li class="never" data-hits="" data-linenumber="52">
           
-          <code class="ruby">		end if params.has_key?(:note)</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="53">
           
           
-          <code class="ruby">	end</code>
+          <code class="ruby">		end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="54">
+          
+          
+          <code class="ruby">	end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="55">
           
           
           <code class="ruby">end</code>
@@ -1513,8 +1519,8 @@
     <h3>app/controllers/api/v1/task_lists_controller.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>30</b> relevant lines. 
-      <span class="green"><b>30</b> lines covered</span> and
+      <b>28</b> relevant lines. 
+      <span class="green"><b>28</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -1585,7 +1591,7 @@
         <li class="covered" data-hits="3" data-linenumber="11">
           <span class="hits">3</span>
           
-          <code class="ruby">    @task_list = TaskList.create(allowed_params)</code>
+          <code class="ruby">    @task_list = @current_user.task_lists.create(allowed_params)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="12">
@@ -1837,34 +1843,16 @@
         <li class="covered" data-hits="6" data-linenumber="53">
           <span class="hits">6</span>
           
-          <code class="ruby">    params[:task_list].permit(:name).tap do |allowed_params|</code>
+          <code class="ruby">    params[:task_list].permit(:name) if params.has_key?(:task_list)</code>
         </li>
       
-        <li class="covered" data-hits="6" data-linenumber="54">
-          <span class="hits">6</span>
-          
-          <code class="ruby">			allowed_params[:user] = @current_user</code>
-        </li>
-      
-        <li class="covered" data-hits="6" data-linenumber="55">
-          <span class="hits">6</span>
-          
-          <code class="ruby">    end if params.has_key?(:task_list)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="56">
+        <li class="never" data-hits="" data-linenumber="54">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="57">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="58">
+        <li class="never" data-hits="" data-linenumber="55">
           
           
           <code class="ruby">end</code>
@@ -2005,7 +1993,7 @@
         <li class="covered" data-hits="3" data-linenumber="20">
           <span class="hits">3</span>
           
-          <code class="ruby">      @task = @task_list.tasks.create(allowed_params)</code>
+          <code class="ruby">      @task = @current_user.tasks.create(allowed_params)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="21">
@@ -2263,13 +2251,13 @@
         <li class="covered" data-hits="6" data-linenumber="63">
           <span class="hits">6</span>
           
-          <code class="ruby">    params[:task].permit(:title).tap do |allowed_params|</code>
+          <code class="ruby">    params[:task].permit(:title, :due_date).tap do |allowed_params|</code>
         </li>
       
         <li class="covered" data-hits="6" data-linenumber="64">
           <span class="hits">6</span>
           
-          <code class="ruby">			allowed_params[:user] = @current_user</code>
+          <code class="ruby">			allowed_params[:task_list_id] = params[:task_list_id]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="65">
@@ -2281,13 +2269,13 @@
         <li class="covered" data-hits="6" data-linenumber="66">
           <span class="hits">6</span>
           
-          <code class="ruby">      if params[:task][:due_date].present?</code>
+          <code class="ruby">      if allowed_params[:due_date].present?</code>
         </li>
       
         <li class="covered" data-hits="2" data-linenumber="67">
           <span class="hits">2</span>
           
-          <code class="ruby">        allowed_params[:due_date] = Date.strptime(params[:task][:due_date], &quot;%m/%d/%Y&quot;)</code>
+          <code class="ruby">        allowed_params[:due_date] = Date.strptime(allowed_params[:due_date], &quot;%m/%d/%Y&quot;)</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="68">

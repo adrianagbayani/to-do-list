@@ -8,7 +8,7 @@ class Api::V1::TaskListsController < Api::V1::BaseController
   end
 
   def create
-    @task_list = TaskList.create(allowed_params)
+    @task_list = @current_user.task_lists.create(allowed_params)
 
 		if @task_list.invalid?
 			render_errors(@task_list)
@@ -50,9 +50,6 @@ class Api::V1::TaskListsController < Api::V1::BaseController
   private
 
   def allowed_params
-    params[:task_list].permit(:name).tap do |allowed_params|
-			allowed_params[:user] = @current_user
-    end if params.has_key?(:task_list)
+    params[:task_list].permit(:name) if params.has_key?(:task_list)
   end
-
 end

@@ -8,7 +8,7 @@ class Api::V1::NotesController < Api::V1::BaseController
 
   def create
 		if @task.present?
-			@note = @task.notes.create(allowed_params)
+			@note = @current_user.notes.create(allowed_params)
 
 			if @note.invalid?
 				render_errors(@note)
@@ -48,7 +48,8 @@ class Api::V1::NotesController < Api::V1::BaseController
 
 	def allowed_params
 		params[:note].permit(:message).tap do |allowed_params|
-			allowed_params[:user] = @current_user
+			allowed_params[:task_id] = params[:task_id]
+
 		end if params.has_key?(:note)
 	end
 end

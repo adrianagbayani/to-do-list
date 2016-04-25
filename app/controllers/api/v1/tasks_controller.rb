@@ -17,7 +17,7 @@ class Api::V1::TasksController < Api::V1::BaseController
 
   def create
     if @task_list.present?
-      @task = @task_list.tasks.create(allowed_params)
+      @task = @current_user.tasks.create(allowed_params)
 
 			if @task.invalid?
 				render_errors(@task)
@@ -60,11 +60,11 @@ class Api::V1::TasksController < Api::V1::BaseController
   private
 
   def allowed_params
-    params[:task].permit(:title).tap do |allowed_params|
-			allowed_params[:user] = @current_user
+    params[:task].permit(:title, :due_date).tap do |allowed_params|
+			allowed_params[:task_list_id] = params[:task_list_id]
 
-      if params[:task][:due_date].present?
-        allowed_params[:due_date] = Date.strptime(params[:task][:due_date], "%m/%d/%Y")
+      if allowed_params[:due_date].present?
+        allowed_params[:due_date] = Date.strptime(allowed_params[:due_date], "%m/%d/%Y")
       end
     end if params.has_key?(:task)
   end
