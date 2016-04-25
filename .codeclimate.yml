@@ -85,10 +85,10 @@ ratings:
   - "**.php"
   - "**.py"
 exclude_paths:
-- config/
-- db/
-- spec/
-- test/
-- vendor/
-- coverage/
-- log/
+- config/**/*
+- db/**/*
+- spec/**/*
+- test/**/*
+- vendor/**/*
+- coverage/**/*
+- log/**/*
