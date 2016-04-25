@@ -1,9 +1,9 @@
 class Api::V1::TasksController < Api::V1::BaseController
-	before_action only: [:update, :destroy, :complete] do
+	before_filter only: [:update, :destroy, :complete] do
 		find_task_by_id(params[:id])
 	end
 
-	before_action only: [:create] do
+	before_filter only: [:create] do
 		find_task_list_by_id(params[:task_list_id])
 	end
 
@@ -16,45 +16,31 @@ class Api::V1::TasksController < Api::V1::BaseController
   end
 
   def create
-    if @task_list.present?
-      @task = @current_user.tasks.create(allowed_params)
+    task = @current_user.tasks.create(allowed_params)
 
-			if @task.invalid?
-				render_errors(@task)
-			else
-				@task = Task.eager_load_task(@task.id)
-			end
-    end
+		if task.invalid?
+			render_errors(task)
+		else
+			@task = Task.eager_load_task(task.id)
+		end
   end
 
   def update
-		if @task.nil?
-			render_empty_json
-		else
-			@task.update(allowed_params)
+		@task.update(allowed_params)
 
-			if @task.invalid?
-				render_errors(@task)
-			else
-				@task = Task.eager_load_task(@task.id)
-			end
+		if @task.invalid?
+			render_errors(@task)
+		else
+			@task = Task.eager_load_task(@task.id)
 		end
   end
 
   def destroy
-		if @task.nil?
-			render_empty_json
-		else
-			@task.destroy
-		end
+		@task.destroy
   end
 
 	def complete
-		if @task.nil?
-			render_empty_json
-		else
-			@task.complete_task
-		end
+		@task.complete_task
 	end
 
   private

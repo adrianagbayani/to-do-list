@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "GET /tasks/1/tasks/1" do
+describe "GET /tasks_lists/1/tasks/1" do
 	context "unauthorized" do
 		it "returns authorization error" do
 			get '/task_lists/1/tasks/1', nil, headers

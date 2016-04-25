@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "POST /tasks/1/tasks/1/notes" do
+describe "POST /tasks_lists/1/tasks/1/notes" do
 	context "unauthorized" do
 		it "returns authorization error" do
 			post '/task_lists/1/tasks/1/notes', nil, headers

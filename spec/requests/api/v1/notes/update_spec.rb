@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "PATCH /tasks/1/tasks/1/notes/1" do
+describe "PATCH /tasks_lists/1/tasks/1/notes/1" do
 	context "unauthorized" do
 		it "returns authorization error" do
 			patch '/task_lists/1/tasks/1/notes/1', nil, headers

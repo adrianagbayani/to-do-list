@@ -16,4 +16,8 @@ class Note < ActiveRecord::Base
 
 	validates :message,
 		presence: true
+
+	def self.eager_load_note(id)
+		Note.eager_load([:user]).where(id: id)[0]
+	end
 end

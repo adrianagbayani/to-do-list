@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "DELETE /tasks/1/tasks/1" do
+describe "DELETE /tasks_lists/1/tasks/1" do
 	context "unauthorized" do
 		it "returns authorization error" do
 			delete '/task_lists/1/tasks/1', nil, headers

@@ -1,5 +1,5 @@
 class Api::V1::TaskListsController < Api::V1::BaseController
-  before_action only: [:update, :destroy] do
+  before_filter only: [:update, :destroy] do
   	find_task_list_by_id(params[:id])
   end
 
@@ -8,7 +8,17 @@ class Api::V1::TaskListsController < Api::V1::BaseController
   end
 
   def create
-    @task_list = @current_user.task_lists.create(allowed_params)
+    task_list = @current_user.task_lists.create(allowed_params)
+
+		if task_list.invalid?
+			render_errors(task_list)
+		else
+			@task_list = TaskList.eager_load_task_list(task_list.id)
+		end
+  end
+
+  def update
+		@task_list.update(allowed_params)
 
 		if @task_list.invalid?
 			render_errors(@task_list)
@@ -17,26 +27,8 @@ class Api::V1::TaskListsController < Api::V1::BaseController
 		end
   end
 
-  def update
-		if @task_list.nil?
-			render_empty_json
-		else
-			@task_list.update(allowed_params)
-
-			if @task_list.invalid?
-				render_errors(@task_list)
-			else
-				@task_list = TaskList.eager_load_task_list(@task_list.id)
-			end
-		end
-  end
-
   def destroy
-		if @task_list.nil?
-			render_empty_json
-		else
-	    @task_list.destroy
-		end
+    @task_list.destroy
   end
 
   def show
