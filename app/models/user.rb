@@ -46,8 +46,6 @@ class User < ActiveRecord::Base
     uniqueness: true,
     format: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
 
-  validates :device_token,
-    presence: true
 
   def password=(new_password)
     @password = new_password

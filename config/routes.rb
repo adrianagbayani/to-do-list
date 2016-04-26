@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-	root to: "index#index"
+	#root to: "index#index"
 
   api vendor_string: "list", default_version: 1, path: '' do
     version 1 do
@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  root :to => "application#index"
+  get "*path" => "application#index"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

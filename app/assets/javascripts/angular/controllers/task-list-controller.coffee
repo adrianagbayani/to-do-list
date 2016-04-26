@@ -1,14 +1,12 @@
 module = angular.module('task-list', [])
 
 TaskListController = ($scope, $http, $filter, $rootScope) ->
+
 	$scope.test = "Hello World Task List"
 	$scope.newTaskList = {}
 	$scope.newTask = {}
 	$scope.newNote = {}
 
-	$scope.$on('login', (e, args) ->
-		$scope.init()
-	)
 
 	$scope.init = ->
 		$scope.fetch()
@@ -131,5 +129,7 @@ TaskListController = ($scope, $http, $filter, $rootScope) ->
 			url: url
 			data: postData,
 		})
+
+	$scope.init()
 
 module.controller('task-list-controller', ['$scope', '$http', '$filter', '$rootScope', TaskListController])

@@ -15,4 +15,8 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require angular
-//= require_tree .
+//= require angular-ui-router/release/angular-ui-router.min
+//= require angular-rails-templates
+//= require_tree ./templates
+//= require ./angular/app
+//= require_tree ./angular/controllers

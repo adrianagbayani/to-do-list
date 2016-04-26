@@ -1,10 +1,11 @@
-module = angular.module('login', [])
 
-LoginController = ($scope, $http, $rootScope) ->
+LoginController = ($scope, $http, $rootScope,$state) ->
+
+	auth_token = localStorage["auth_token"]
+	$state.go("tasks") if !!auth_token
 
 	$scope.test = "Hello World Login"
 	$scope.user = {}
-
 	$scope.login = ->
 		$http.post("/users/sign_in", { user: $scope.user }).
 			then (data) ->
@@ -12,6 +13,7 @@ LoginController = ($scope, $http, $rootScope) ->
 					$rootScope.authToken = data.data.user.auth_token
 					localStorage.setItem('auth_token', $rootScope.authToken)
 					$http.defaults.headers.common['X-Auth-Token'] = $rootScope.authToken
-					$rootScope.$broadcast('login', $rootScope.authToken)
+					$state.go("tasks")
 
-module.controller('login-controller', ['$scope', '$http', '$rootScope', LoginController])
+LoginController.$inject = ['$scope', '$http', '$rootScope','$state']
+angular.module('todoapp').controller('loginController', LoginController)

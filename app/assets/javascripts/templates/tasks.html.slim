@@ -1,0 +1,117 @@
+div
+  .pull-right.col-lg-12 style="padding-bottom:10px;margin:auto;"
+    h1.pull-left To Do App
+    button.btn.pull-right data-target="#task_list_modal" data-toggle="modal" ng-click="initNewTaskList()" style="margin-top:22px;" type="button"  Add Task List
+  .pull-right.col-lg-12
+
+    #taskLists.panel-group
+      .panel.panel-default ng-repeat=("taskList in taskLists")
+        .panel-heading
+          h4.panel-title
+          div ng-hide="!taskList.editable"
+            form
+              input ng-model="taskList.name" /
+          a data-parent="#taskLists" data-toggle="collapse" href="#collapse{{taskList.id}}" ng-show="!taskList.editable"
+            | {{taskList.name}} {{taskList.id}}
+        .panel-collapse.collapse id="collapse{{taskList.id}}"
+          .panel-body
+            button.pull-right ng-click="updateTaskList(taskList)" ng-hide="!taskList.editable"
+              | Save Task List
+            button.pull-right ng-click="editTaskList(taskList)" ng-show="!taskList.editable"
+              | Edit Task List
+            button.pull-right ng-click="deleteTaskList(taskList)"
+              | Delete Task List
+            div
+            span By:  {taskList.user.username}
+
+            .panel-group id="tasks{{taskList.id}}"
+              .panel.panel-default ng-repeat=("task in taskList.tasks")
+                .panel-heading
+                  h4.panel-title
+                  div ng-hide="!task.editable"
+                    form
+                      input ng-model="task.title" /
+                  a data-parent="#tasks{{taskList.id}}" data-toggle="collapse" href="#collapse_task{{task.id}}" ng-show="!task.editable"
+                    | {{task.title}}
+                .panel-collapse.collapse id="collapse_task{{task.id}}"
+                  .panel-body
+                    span By:  {taskList.user.username}
+                    div ng-hide="!task.editable"
+                      input ng-model="task.due_date_unformatted" type="date" /
+                    div ng-show="!task.editable"
+                      | {{task.due_date | date: 'M/d/yyyy'}}
+                    button.pull-right ng-click="updateTask(taskList, task)" ng-hide="!task.editable"
+                      | Save Task
+                    button.pull-right ng-click="editTask(task)" ng-show="!task.editable"
+                      | Edit Task
+                    button.pull-right ng-click="deleteTask(taskList, task)"
+                      | Delete Task
+
+                    .panel-group id="notes{{task.id}}"
+                      .panel.panel-default
+                        .panel-heading
+                          h4.panel-title
+                            a data-parent="#notes{{task.id}}" data-toggle="collapse" href="#collapse_note{{note.id}}"
+                              | Notes
+                        .panel-collapse.collapse.in id="collapse_note{{note.id}}"
+                          .panel-body
+                            div ng-repeat=("note in task.notes")
+                              div ng-show="!note.editable"
+                                span  {note.message}
+                                span By:  {note.user.username}
+                              div ng-hide="!note.editable"
+                                input ng-model="note.message" placeholder="Message" /
+                              button.pull-right ng-click="updateNote(taskList, task, note)" ng-hide="!note.editable"
+                                | Save Note
+                              button.pull-right ng-click="editNote(note)" ng-show="!note.editable"
+                                | Edit Note
+                              button.pull-right ng-click="deleteNote(taskList, task, note)"
+                                | Delete Note
+                    a.pull-right data-target="#note_modal" data-toggle="modal" ng-click="initNewNote(taskList, task)"
+                      | Add Note
+
+
+#task_list_modal.modal.fade role="dialog"
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title New Task List
+      .modal-body
+        form name="taskListForm"
+          input ng-model="newTaskList.name" placeholder="name" /
+      .modal-footer
+        button.btn ng-click="saveTaskList(taskListForm)" type="button"  Save
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+
+
+/! Modal
+#task_modal.modal.fade role="dialog"
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title Add Task
+      .modal-body
+        form name="taskForm"
+          input ng-model="newTask.title" placeholder="Title" /
+          input ng-model="newTask.due_date_unformatted" type="date" /
+      .modal-footer
+        button.btn ng-click="saveTask(taskForm)" type="button"  Save
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+
+#note_modal.modal.fade role="dialog"
+  .modal-dialog
+    /! Modal content
+    .modal-content
+      .modal-header
+        button.close data-dismiss="modal" type="button"  &times;
+        h4.modal-title Add Note
+      .modal-body
+        form name="noteForm"
+          input ng-model="newNote.message" placeholder="Message" /
+      .modal-footer
+        button.btn ng-click="saveNote(noteForm)" type="button"  Save
+        button.btn.btn-default data-dismiss="modal" type="button"  Close

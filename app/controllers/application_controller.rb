@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user, unless: :authentication_controller?
 
+  def index
+    render text: "", layout: true
+  end
+
 	protected
 
 	def authentication_controller?
