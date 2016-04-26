@@ -33,10 +33,9 @@ describe "GET /task_list/:id" do
 
 			get '/task_lists/1', nil, headers
 
-			expect(json["task_list"]).to be_present
-			expect(json["task_list"]["id"]).to be_present
-			expect(json["task_list"]["name"]).to eq(task_list[:name])
-			expect(json["task_list"]["user"]).to be_present
+			expect(json["id"]).to be_present
+			expect(json["name"]).to eq(task_list[:name])
+			expect(json["user"]).to be_present
 		end
 	end
 end

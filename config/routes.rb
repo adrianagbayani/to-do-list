@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+	root to: "index#index"
+
   api vendor_string: "list", default_version: 1, path: '' do
     version 1 do
       cache as: 'v1' do

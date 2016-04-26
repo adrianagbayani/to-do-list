@@ -34,10 +34,9 @@ describe "POST /tasks_lists/1/tasks/1/notes" do
 
 			post '/task_lists/1/tasks/1/notes', post_data.to_json, headers
 
-			expect(json).to include("note")
-			expect(json["note"]["id"]).to be_present
-			expect(json["note"]["message"]).to eq(post_data[:note][:message])
-			expect(json["note"]["user"]).to be_present
+			expect(json["id"]).to be_present
+			expect(json["message"]).to eq(post_data[:note][:message])
+			expect(json["user"]).to be_present
 		end
 
 		it "return error messags on blank form" do

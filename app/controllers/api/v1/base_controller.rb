@@ -2,6 +2,10 @@ class Api::V1::BaseController < ApplicationController
 
 	protected
 
+  def authentication_controller?
+    false
+  end
+
 	def find_task_by_id(id)
 		@task = Task.find_by_id(id)
 

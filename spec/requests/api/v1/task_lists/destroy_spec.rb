@@ -33,9 +33,8 @@ describe "GET /task_list/:id" do
 
 			delete '/task_lists/1', nil, headers
 
-			expect(json["task_list"]).to be_present
-			expect(json["task_list"]["id"]).to be_present
-			expect(json["task_list"]["name"]).to eq(task_list[:name])
+			expect(json["id"]).to be_present
+			expect(json["name"]).to eq(task_list[:name])
 			expect(TaskList.count).to eq(0)
 		end
 	end

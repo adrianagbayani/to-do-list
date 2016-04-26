@@ -30,9 +30,8 @@ describe "POST /tasks_lists/1/tasks/1/notes" do
 		it "returns json upon successful deletion" do
 			delete '/task_lists/1/tasks/1/notes/1', nil, headers
 
-			expect(json).to include("note")
-			expect(json["note"]["id"]).to be_present
-			expect(json["note"]["message"]).to eq("Message")
+			expect(json["id"]).to be_present
+			expect(json["message"]).to eq("Message")
 			expect(Note.count).to eq(0)
 		end
 

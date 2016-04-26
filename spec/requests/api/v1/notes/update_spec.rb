@@ -35,9 +35,8 @@ describe "PATCH /tasks_lists/1/tasks/1/notes/1" do
 			}
 			patch '/task_lists/1/tasks/1/notes/1', post_data.to_json, headers
 
-			expect(json).to include("note")
-			expect(json["note"]["id"]).to be_present
-			expect(json["note"]["message"]).to eq(post_data[:note][:message])
+			expect(json["id"]).to be_present
+			expect(json["message"]).to eq(post_data[:note][:message])
 		end
 
 		it "return error messags on blank form" do

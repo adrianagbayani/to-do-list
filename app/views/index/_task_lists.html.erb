@@ -1,0 +1,26 @@
+<!-- Begin TaskLists -->
+<div class="panel-group" id="taskLists">
+	<div class="panel panel-default" ng-repeat="taskList in taskLists">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#taskLists" href="#collapse{{taskList.id}}">
+					{{taskList.name}} {{taskList.id}}
+				</a>
+			</h4>
+		</div>
+		<div id="collapse{{taskList.id}}" class="panel-collapse collapse">
+			<div class="panel-body">
+				<button class="pull-right">
+					Edit Task List
+				</button>
+				<button class="pull-right">
+					Delete Task List
+				</button>
+				Form Add Task
+				<span>By: {{taskList.user.username}}</span>
+				<%= render "tasks" %>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- End TaskLists -->

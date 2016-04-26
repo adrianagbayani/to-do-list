@@ -1,0 +1,23 @@
+<!-- Begin Notes -->
+<div class="panel-group" id="notes{{task.id}}">
+	<div class="panel panel-default" >
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#notes{{task.id}}" href="#collapse_note{{note.id}}">
+					Notes
+				</a>
+			</h4>
+		</div>
+		<div id="collapse_note{{note.id}}" class="panel-collapse collapse">
+			<div class="panel-body">
+				Form Add Notes
+				<div ng-repeat="note in task.notes">
+					<span>{{note.message}}</span>
+					<span>By: {{note.user.username}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Notes Form -->
+<!-- End Notes -->

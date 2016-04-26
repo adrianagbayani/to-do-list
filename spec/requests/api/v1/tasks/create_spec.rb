@@ -33,11 +33,10 @@ describe "POST /tasks_lists/1/tasks" do
 
 			post '/task_lists/1/tasks', post_data.to_json, headers
 
-			expect(json).to include("task")
-			expect(json["task"]["id"]).to be_present
-			expect(json["task"]["title"]).to eq(post_data[:task][:title])
-			expect(json["task"]["due_date"]).to eq("2016-04-20T00:00:00.000Z")
-			expect(json["task"]["user"]).to be_present
+			expect(json["id"]).to be_present
+			expect(json["title"]).to eq(post_data[:task][:title])
+			expect(json["due_date"]).to eq("2016-04-20T00:00:00.000Z")
+			expect(json["user"]).to be_present
 		end
 
 		it "return error messags on blank form" do

@@ -28,7 +28,6 @@ describe "GET /task_lists" do
 
 			get '/task_lists', nil, headers
 
-			expect(json["task_lists"]).to be_present
 			expect(json["task_lists"].length).to eq(3)
 		end
 	end

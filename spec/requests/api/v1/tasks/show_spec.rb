@@ -35,12 +35,11 @@ describe "GET /tasks_lists/1/tasks/1" do
 		it "returns json upon successful completion" do
 			get '/task_lists/1/tasks/1', nil, headers
 
-			expect(json).to include("task")
-			expect(json["task"]["id"]).to be_present
-			expect(json["task"]).to include("complete")
-			expect(json["task"]["title"]).to eq("Go To Store")
-			expect(json["task"]["due_date"]).to eq("2016-04-20T00:00:00.000Z")
-			expect(json["task"]["user"]).to be_present
+			expect(json["id"]).to be_present
+			expect(json).to include("complete")
+			expect(json["title"]).to eq("Go To Store")
+			expect(json["due_date"]).to eq("2016-04-20T00:00:00.000Z")
+			expect(json["user"]).to be_present
 		end
 	end
 end

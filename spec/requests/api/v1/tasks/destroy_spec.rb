@@ -36,11 +36,10 @@ describe "DELETE /tasks_lists/1/tasks/1" do
 		it "returns json upon successful completion" do
 			delete '/task_lists/1/tasks/1', nil, headers
 
-			expect(json).to include("task")
-			expect(json["task"]["id"]).to be_present
-			expect(json["task"]).to include("complete")
-			expect(json["task"]["title"]).to eq("Go To Store")
-			expect(json["task"]["due_date"]).to eq("2016-04-20T00:00:00.000Z")
+			expect(json["id"]).to be_present
+			expect(json).to include("complete")
+			expect(json["title"]).to eq("Go To Store")
+			expect(json["due_date"]).to eq("2016-04-20T00:00:00.000Z")
 			expect(Task.count).to eq(0)
 		end
 	end
