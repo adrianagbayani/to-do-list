@@ -3,22 +3,46 @@
 	<div class="panel panel-default" ng-repeat="task in taskList.tasks">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#tasks{{taskList.id}}" href="#collapse_task{{task.id}}">
+				<div ng-hide="!task.editable">
+					<form>
+						<input ng-model="task.title"/>
+					</form>
+				</div>
+				<a data-toggle="collapse" data-parent="#tasks{{taskList.id}}"
+				 href="#collapse_task{{task.id}}" ng-show="!task.editable">
 					{{task.title}}
-					{{task.due_date}}
 				</a>
 			</h4>
 		</div>
 		<div id="collapse_task{{task.id}}" class="panel-collapse collapse">
 			<div class="panel-body">
 				<span>By: {{taskList.user.username}}</span>
+				<div ng-hide="!task.editable">
+					<input type="date" ng-model="task.due_date_unformatted"/>
+				</div>
+				<div ng-show="!task.editable">
+					{{task.due_date | date: 'M/d/yyyy'}}
+				</div>
+				<button class="pull-right" ng-hide="!task.editable"
+					ng-click="updateTask(taskList, task)">
+					Save Task
+				</button>
+				<button class="pull-right" ng-show="!task.editable"
+					ng-click="editTask(task)">
+					Edit Task
+				</button>
+				<button class="pull-right" ng-click="deleteTask(taskList, task)">
+					Delete Task
+				</button>
 				<%= render "notes" %>
 			</div>
 		</div>
 	</div>
-</div>
-<!-- Task Form -->
-<a href=""class="pull-right">
+</div><!-- Task Form -->
+<a class="pull-right"
+	data-toggle="modal"
+	data-target="#task_modal"
+	ng-click="initNewTask(taskList)">
 	Add Task
-</button>
+</a>
 <!-- End Tasks -->

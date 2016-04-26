@@ -8,16 +8,38 @@
 				</a>
 			</h4>
 		</div>
-		<div id="collapse_note{{note.id}}" class="panel-collapse collapse">
+		<div id="collapse_note{{note.id}}" class="panel-collapse collapse in">
 			<div class="panel-body">
-				Form Add Notes
 				<div ng-repeat="note in task.notes">
-					<span>{{note.message}}</span>
-					<span>By: {{note.user.username}}</span>
+					<div ng-show="!note.editable">
+						<span>{{note.message}}</span>
+						<span>By: {{note.user.username}}</span>
+					</div>
+					<div ng-hide="!note.editable">
+						<input ng-model="note.message" placeholder="Message"/>
+					</div>
+					<button class="pull-right" ng-hide="!note.editable"
+						ng-click="updateNote(taskList, task, note)">
+						Save Note
+					</button>
+					<button class="pull-right" ng-show="!note.editable"
+						ng-click="editNote(note)">
+						Edit Note
+					</button>
+					<button class="pull-right" ng-click="deleteNote(taskList, task, note)">
+						Delete Note
+					</button>
 				</div>
+
 			</div>
 		</div>
 	</div>
 </div>
+<a class="pull-right"
+	data-toggle="modal"
+	data-target="#note_modal"
+	ng-click="initNewNote(taskList, task)">
+	Add Note
+</a>
 <!-- Notes Form -->
 <!-- End Notes -->

@@ -34,8 +34,7 @@ class Api::V1::NotesController < Api::V1::BaseController
 
 	def allowed_params
 		params[:note].permit(:message).tap do |allowed_params|
-			allowed_params[:task_id] = params[:task]
-
+			allowed_params[:task_id] = params[:task_id]
 		end if params.has_key?(:note)
 	end
 end

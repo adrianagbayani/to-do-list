@@ -4,7 +4,7 @@ class Api::V1::TaskListsController < Api::V1::BaseController
   end
 
   def index
-    @task_lists = TaskList.all
+    @task_lists = TaskList.eager_load([:user, :tasks => [:user, :notes => :user]])
   end
 
   def create

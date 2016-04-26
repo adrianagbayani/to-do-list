@@ -15,11 +15,13 @@
 			style="margin-top:22px;"
 			class="btn pull-right"
 			data-toggle="modal"
-			data-target="#task_list_modal">Add Task List</button>
+			data-target="#task_list_modal"
+			ng-click="initNewTaskList()">Add Task List</button>
 	</div>
-
 	<div class="pull-right col-lg-12">
 		<%= render "task_lists" %>
 	</div>
-		<%= render "task_list_form" %>
+	<%= render "task_list_form" %>
+	<%= render "task_form" %>
+	<%= render "note_form" %>
 </div>

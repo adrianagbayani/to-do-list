@@ -3,20 +3,32 @@
 	<div class="panel panel-default" ng-repeat="taskList in taskLists">
 		<div class="panel-heading">
 			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#taskLists" href="#collapse{{taskList.id}}">
+				<div ng-hide="!taskList.editable">
+					<form>
+						<input ng-model="taskList.name"/>
+					</form>
+				</div>
+				<a data-toggle="collapse" data-parent="#taskLists"
+					 href="#collapse{{taskList.id}}" ng-show="!taskList.editable">
 					{{taskList.name}} {{taskList.id}}
 				</a>
 			</h4>
 		</div>
 		<div id="collapse{{taskList.id}}" class="panel-collapse collapse">
 			<div class="panel-body">
-				<button class="pull-right">
+				<button class="pull-right" ng-hide="!taskList.editable"
+					ng-click="updateTaskList(taskList)">
+					Save Task List
+				</button>
+				<button class="pull-right" ng-show="!taskList.editable"
+					ng-click="editTaskList(taskList)">
 					Edit Task List
 				</button>
-				<button class="pull-right">
+				<button class="pull-right" ng-click="deleteTaskList(taskList)">
 					Delete Task List
 				</button>
-				Form Add Task
+				<div>
+				</div>
 				<span>By: {{taskList.user.username}}</span>
 				<%= render "tasks" %>
 			</div>
